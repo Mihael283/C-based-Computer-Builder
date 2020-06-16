@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include "Mihael_Spanovic_zavrsni_head.h"
 #include <stdio.h>
 #include <string.h>
@@ -6,8 +6,6 @@
 
 
 
-///Prilikom izrade zadatka kako bih mogao unositi razmake sa scanf morao sam uvijek napraviti jos jedan scanf prije njega kako bi glavni radio
-///Zbog tog razloga prije scanf funckije za unos imena uvijek postoji %c scanf
 
 void izbornik()
 {
@@ -32,7 +30,7 @@ void izbornik()
     }
     case 2:
     {
-
+        izbornikk();
         break;
     }
     case 3:
@@ -57,6 +55,7 @@ void adminLogin()
 
     if (strcmp(password, provjera) == 0)
     {
+        system("cls");
         adminMenu();
     }
     else
@@ -68,23 +67,20 @@ void adminLogin()
 }
 void adminMenu()
 {
-    int i = 0;
-
-
-
-    printf(" 1. Unos komponenti.\n");
-    printf(" 2. Brisanje komponenti.\n");
-    printf(" 3. Ipis komponenti/racunala.\n");
-    printf(" 4. Slaganje racunala.\n");
-
-    printf("//////////////////////////\n");
-    printf(" 5. Odjava\n");
-    printf(" 6. Turn off\n");
-
-    printf("Unesite broj koji odgovara izborniku:\n");
-    scanf("%d", &i);
     do
     {
+        int i = 0;
+        printf(" 1. Unos komponenti.\n");
+        printf(" 2. Brisanje komponenti.\n");
+        printf(" 3. Ipis komponenti/racunala.\n");
+        printf(" 4. Slaganje racunala.\n");
+
+        printf("//////////////////////////\n");
+        printf(" 5. Odjava\n");
+        printf(" 6. Turn off\n");
+
+        printf("Unesite broj koji odgovara izborniku:\n");
+        scanf("%d", &i);
         switch (i)
         {
         case 1:
@@ -138,28 +134,30 @@ void adminMenu()
             izbornik();
         }
         }
-    } while (!(i >= 1 && i < 7));
+    } while (1);
 
 }
 
 void unosKomponenti()
 {
-    int i;
-    int j;
-    FILE* fp = NULL;
-    printf(" 1. Procesor\n");
-    printf(" 2. Maticna ploca\n");
-    printf(" 3. RAM\n");
-    printf(" 4. Graficka kartica\n");
-    printf(" 5. Napajanje\n");
-    printf(" 6. Kuciste\n");
-    printf("//////////////////////////////////\n");
-    printf(" 7.Admin menu\n");
 
-    printf("Unesite broj koji odgovara izborniku:\n");
-    scanf("%d", &i);
     do
     {
+        int i;
+        int j;
+        FILE* fp = NULL;
+        system("cls");
+        printf(" 1. Procesor\n");
+        printf(" 2. Maticna ploca\n");
+        printf(" 3. RAM\n");
+        printf(" 4. Graficka kartica\n");
+        printf(" 5. Napajanje\n");
+        printf(" 6. Kuciste\n");
+        printf("//////////////////////////////////\n");
+        printf(" 7.Admin menu\n");
+
+        printf("Unesite broj koji odgovara izborniku:\n");
+        scanf("%d", &i);
         switch (i)
         {
         case 1:
@@ -195,12 +193,10 @@ void unosKomponenti()
                     scanf("%f", &racunalo.procesor.cijena);
                     fwrite(&racunalo.procesor,sizeof(racunalo.procesor),1,fp);
                     fclose(fp);
-                    for(;;)
-                    { 
-                    unosKomponenti();
-                    break;
-                    }
+                    printf("USPJESAN UNOS");
+                    return;
                 }
+                system("cls");
                 break;
             }
             case 2:
@@ -228,13 +224,10 @@ void unosKomponenti()
                     scanf("%f", &racunalo.procesor.cijena);
                     fwrite(&racunalo.procesor, sizeof(racunalo.procesor), 1, fp);
                     fclose(fp);
-                    
-                    for (;;)
-                    {
-                        unosKomponenti();
-                        break;
-                    }
+                    printf("USPJESAN UNOS");
+                    return;
                 }
+                system("cls");
                 break;
             } 
             default:
@@ -274,14 +267,11 @@ void unosKomponenti()
                     scanf("%f", &racunalo.maticna.cijena);
                     fwrite(&racunalo.maticna, sizeof(racunalo.maticna), 1, fp);
                     fclose(fp);
-                    
-                    for (;;)
-                    {
-                        unosKomponenti();
-                        break;
-                    }
+                    printf("USPJESAN UNOS");
+                    return;
 
                 }
+                system("cls");
                 break;
             }
             case 2:
@@ -305,13 +295,10 @@ void unosKomponenti()
                     scanf("%f", &racunalo.maticna.cijena);
                     fwrite(&racunalo.maticna, sizeof(racunalo.maticna), 1, fp);
                     fclose(fp);
-                    
-                    for (;;)
-                    {
-                        unosKomponenti();
-                        break;
-                    }
+                    printf("USPJESAN UNOS");
+                    return;
                 }
+                system("cls");
                 break;
             }
             default:
@@ -345,14 +332,12 @@ void unosKomponenti()
                 printf("Cijena:");
                 scanf("%f", &racunalo.ram.cijena);
                 fwrite(&racunalo.ram, sizeof(racunalo.ram), 1, fp);
+                printf("USPJESAN UNOS");
                 fclose(fp);
                 
-                for (;;)
-                {
-                    unosKomponenti();
-                    break;
-                }
+                return;
             }
+            system("cls");
             break;
         }
         case 4:
@@ -376,13 +361,11 @@ void unosKomponenti()
                 scanf("%f", &racunalo.graficka.cijena);
                 fwrite(&racunalo.graficka, sizeof(racunalo.graficka), 1, fp);
                 fclose(fp);
+                printf("USPJESAN UNOS");
                 
-                for (;;)
-                {
-                    unosKomponenti();
-                    break;
-                }
+                return;
             }
+            system("cls");
             break;
         }
         case 5:
@@ -406,13 +389,11 @@ void unosKomponenti()
                 scanf("%f", &racunalo.psu.cijena);
                 fwrite(&racunalo.psu, sizeof(racunalo.psu), 1, fp);
                 fclose(fp);
+                printf("USPJESAN UNOS");
                 
-                for (;;)
-                {
-                    unosKomponenti();
-                    break;
-                }
+                return;
             }
+            system("cls");
             break;
         }
         case 6:
@@ -435,32 +416,28 @@ void unosKomponenti()
                 fwrite(&racunalo.kuciste, sizeof(racunalo.kuciste), 1, fp);
                 fclose(fp);
                 
-                for (;;)
-                {
-                    unosKomponenti();
-                    break;
-                }
+                return;
             }
+            system("cls");
             break;
         }
         case 7:
         {
+            system("cls");
             for(;;)
             {
             adminMenu();
+            break;
             }
             break;
         }
         default:
         {
             printf("\aPonovite unos!\n");
-            for (;;)
-            {
-                adminMenu();
-            }
+            return;
         }
         }
-    } while (!(i >= 1 && i < 8));
+    } while (1);
 
 
 }
@@ -468,20 +445,21 @@ void unosKomponenti()
 void brisanjeKomponenti()
 {
 
-    int i, j, check;
-    printf(" 1. Procesor\n");
-    printf(" 2. Maticna ploca\n");
-    printf(" 3. RAM\n");
-    printf(" 4. Graficka kartica\n");
-    printf(" 5. Napajanje\n");
-    printf(" 6. Kuciste\n");
-    printf("//////////////////////////////////\n");
-    printf(" 7.Admin menu");
-
-    printf("Unesite broj koji odgovara izborniku:\n");
-    scanf("%d", &i);
+    
     do
     {
+        int i, j, check;
+        printf(" 1. Procesor\n");
+        printf(" 2. Maticna ploca\n");
+        printf(" 3. RAM\n");
+        printf(" 4. Graficka kartica\n");
+        printf(" 5. Napajanje\n");
+        printf(" 6. Kuciste\n");
+        printf("//////////////////////////////////\n");
+        printf(" 7.Admin menu");
+
+        printf("Unesite broj koji odgovara izborniku:\n");
+        scanf("%d", &i);
         switch (i)
         {
         case 1:
@@ -539,11 +517,9 @@ void brisanjeKomponenti()
 
                 remove("ProcesoriAMD");
                 rename("Temp", "ProcesoriAMD");
-                for(;;)
-                { 
-                brisanjeKomponenti();
-                break;
-                }
+
+                system("cls");
+                return;
                 break;
             }
             case 2:
@@ -594,11 +570,8 @@ void brisanjeKomponenti()
                 remove("ProcesoriINTEL");
                 rename("Temp", "ProcesoriINTEL");
                 
-                for (;;)
-                {
-                    brisanjeKomponenti();
-                    break;
-                }
+                system("cls");
+                return;
                 break;
             }
             }
@@ -661,11 +634,9 @@ void brisanjeKomponenti()
                 remove("MaticneAMD");
                 rename("Temp", "MaticneAMD");
                 
-                for (;;)
-                {
-                    brisanjeKomponenti();
-                    break;
-                }
+
+                system("cls");
+                return;
                 break;
             }
             case 2:
@@ -718,11 +689,8 @@ void brisanjeKomponenti()
                 remove("MaticneINTEL");
                 rename("Temp", "MaticneINTEL");
                 
-                for (;;)
-                {
-                    brisanjeKomponenti();
-                    break;
-                }
+                system("cls");
+                return;
                 break;
             }
             }
@@ -778,11 +746,9 @@ void brisanjeKomponenti()
             remove("RAM");
             rename("Temp", "RAM");
             
-            for (;;)
-            {
-                brisanjeKomponenti();
-                break;
-            }
+
+            system("cls");
+            return;
             break;
         }
         case 4:
@@ -832,10 +798,9 @@ void brisanjeKomponenti()
 
             remove("Graficke");
             rename("Temp", "Graficke");
-            
-            for (;;) {
-                brisanjeKomponenti(); break;
-            }
+
+            system("cls");
+            return;
             break;
         }
         case 5:
@@ -886,9 +851,9 @@ void brisanjeKomponenti()
             remove("Napajanje");
             rename("Temp", "Napajanje");
             
-            for (;;) {
-                brisanjeKomponenti(); break;
-            }
+
+            system("cls");
+            return;
             break;
         }
         case 6:
@@ -936,28 +901,31 @@ void brisanjeKomponenti()
             fclose(fp_tmp);
             remove("Kucista");
             rename("Temp", "Kucista");
-            for (;;) {
-                brisanjeKomponenti(); break;
-            }
+            
+            system("cls");
+            return;
             break;
         }
         case 7:
         {
+            system("cls");
             for(;;){adminMenu();break;}
+ 
+            break;
         }
+       
         default:
         {
             printf("\aPonovite unos");
-            for (;;) {
-                brisanjeKomponenti(); break;
-            }
+            return;
         }
         } 
-    } while (!(i >= 1 && i < 7));
+    } while (1);
 }
 
 void slaganjeRacunala()
 {
+    do{
     int x=0;
     int i = 0;
     printf("1.Zapocnite odabir:\n");
@@ -981,7 +949,7 @@ void slaganjeRacunala()
         printf("Pogrešan unos!");
         for(;;){adminMenu();break;}
     }
-    
+    system("cls");
     printf("Uspjesno slaganja računala.\n");
     printf("Unesite odgovarajuci broj:\n");
     printf("1. Povratak u admin menu.");
@@ -993,15 +961,14 @@ void slaganjeRacunala()
     }
     else if (x == 2)
     {
-        for (;;) {
-            slaganjeRacunala(); break;
-        }
+        system("cls");
+        return;
     }
     else {
         printf("Error!");
         for(;;){adminMenu();break;}
     }
-
+    } while (1);
     
 }
 
@@ -1326,20 +1293,22 @@ void srccase()
 
 void ispisKomponenti()
 {
-    int i=0;
-    printf("1.Procesori.\n");
-    printf("2.Maticne ploce.\n");
-    printf("3.Radna memorija.\n");
-    printf("4.Graficke kartice.\n");
-    printf("5.Napajanje.\n");
-    printf("6.Kucista.\n");
-    printf("7.Gotova racunala.\n");
-    printf("8.Povratak u admin menu.\n");
-    printf("///////////////////////\n");
-    printf("Unesite broj koji odgovara izborniku:");
-    scanf("%d", &i);
+
     do
     {
+        int i = 0;
+        system("cls");
+        printf("1.Procesori.\n");
+        printf("2.Maticne ploce.\n");
+        printf("3.Radna memorija.\n");
+        printf("4.Graficke kartice.\n");
+        printf("5.Napajanje.\n");
+        printf("6.Kucista.\n");
+        printf("7.Gotova racunala.\n");
+        printf("8.Povratak u admin menu.\n");
+        printf("///////////////////////\n");
+        printf("Unesite broj koji odgovara izborniku:");
+        scanf("%d", &i);
         switch (i)
         {
         case 1:
@@ -1365,9 +1334,7 @@ void ispisKomponenti()
             else
             {
                 printf("Pogresan unos!");
-                for (;;) {
-                    ispisKomponenti(); break;
-                }
+                return;
             }
             if (view == NULL)
             {
@@ -1379,9 +1346,9 @@ void ispisKomponenti()
                 printf("%d.%s  %s %s %s  %0.2f Kn\n", racunalo.procesor.id, racunalo.procesor.ime, racunalo.procesor.clock, racunalo.procesor.brojjezgri, racunalo.procesor.brojtredova, racunalo.procesor.cijena);
             }
             fclose(view);
-            for (;;) {
-                ispisKomponenti(); break;
-            }
+            system("cls");
+            return;
+           
             break;
         }
         case 2:
@@ -1400,9 +1367,7 @@ void ispisKomponenti()
             }
             else {
                 printf("Pogresan unos!");
-                for (;;) {
-                    ispisKomponenti(); break;
-                }
+                return;
             }
             if (view == NULL)
             {
@@ -1413,9 +1378,9 @@ void ispisKomponenti()
                 printf("%d.%s  %s  %0.2f Kn\n", racunalo.maticna.id, racunalo.maticna.ime, racunalo.maticna.chipset, racunalo.maticna.cijena);
             }
             fclose(view);
-            for (;;) {
-                ispisKomponenti(); break;
-            }
+            system("cls");
+            return;
+
             break;
         }
         case 3:
@@ -1432,9 +1397,9 @@ void ispisKomponenti()
                 printf("%d.%s  %s  %0.2f Kn\n", racunalo.ram.id, racunalo.ram.ime, racunalo.ram.size, racunalo.ram.cijena);
             }
             fclose(view);
-            for (;;) {
-                ispisKomponenti(); break;
-            }
+            system("cls");
+            return;
+
             break;
         }
         case 4:
@@ -1451,9 +1416,8 @@ void ispisKomponenti()
                 printf("%d.%s  %s  %0.2f Kn\n", racunalo.graficka.id, racunalo.graficka.ime, racunalo.graficka.ram, racunalo.graficka.cijena);
             }
             fclose(view);
-            for (;;) {
-                ispisKomponenti(); break;
-            }
+            system("cls");
+            return;
             break;
         }
         case 5:
@@ -1470,9 +1434,8 @@ void ispisKomponenti()
                 printf("%d.%s  %s  %0.2f Kn\n", racunalo.psu.id, racunalo.psu.ime, racunalo.psu.output, racunalo.psu.cijena);
             }
             fclose(view);
-            for (;;) {
-                ispisKomponenti(); break;
-            }
+            system("cls");
+            return;
             break;
         }
         case 6:
@@ -1489,9 +1452,8 @@ void ispisKomponenti()
                 printf("%d.%s %0.2f Kn\n", racunalo.kuciste.id, racunalo.kuciste.ime, racunalo.kuciste.cijena);
             }
             fclose(view);
-            for (;;) {
-                ispisKomponenti(); break;
-            }
+            system("cls");
+            return;
             break;
         }
         case 7:
@@ -1511,9 +1473,8 @@ void ispisKomponenti()
                     printf("%s\n %s\n %s\n %s\n %s\n %s\n", racunalo.procesor.ime, racunalo.maticna.ime, racunalo.ram.ime, racunalo.graficka.ime, racunalo.psu.ime, racunalo.kuciste.ime);
                 }
                 fclose(view);
-                for (;;) {
-                    ispisKomponenti(); break;
-                }
+                system("cls");
+                return;
                 break;
             }
 
@@ -1525,6 +1486,8 @@ void ispisKomponenti()
                 izbornik();
                 break;
             }
+            system("cls");
+            break;
         }
         default:
         {
@@ -1536,6 +1499,5 @@ void ispisKomponenti()
             }
         }
         }
-    } while (!(i >= 1 && i < 9));
+    } while (1);
 }
-
