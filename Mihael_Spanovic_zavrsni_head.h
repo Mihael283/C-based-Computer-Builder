@@ -1,4 +1,4 @@
-﻿#ifndef Mihael_Spanovic_zavrsni_head
+#ifndef Mihael_Spanovic_zavrsni_head
 #define Mihael_Spanovic_zavrsni_head
 
 
@@ -90,4 +90,16 @@ void srcpsu();
 void srccase();
 
 
+void izbornikk();
+RACUNALO* izdavanjeracuna();
+void selectionSortProc(PROCESOR*, const int);
+void zamjenaProc(PROCESOR*, PROCESOR*);
+void zamjenaprocCijena(PROCESOR*, PROCESOR*);
+void selectionSortProcCijena(PROCESOR*, const int);
+void selectionSortMaticne(MATICNA*, const int);
+void zamjenaMat(MATICNA*, MATICNA*);
+void zamjenaMatCijena(MATICNA*, MATICNA*);
+void selectionSortMatCijena(MATICNA*, const int);
+PROCESOR* memoryallocProcesor(PROCESOR*,int n);
+RACUNALO kupnjakomp();
 #endif
