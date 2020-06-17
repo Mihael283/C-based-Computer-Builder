@@ -107,7 +107,7 @@ void izbornikk();
 RACUNALO kupnjakomp();
 RACUNALO kupnjaracunala();
 int securecheck();
-RACUNALO randompc();
+
 void printKclosest(RACUNALO*, int, int, int);
 //SORTIRANJE
 void selectionSortProc(PROCESOR*, const int);
