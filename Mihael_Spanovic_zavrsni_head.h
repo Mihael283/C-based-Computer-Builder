@@ -44,6 +44,15 @@ typedef struct
 {
 	int id;
 	char ime[30];
+	char size[5];
+	float cijena;
+
+}HARD;
+
+typedef struct
+{
+	int id;
+	char ime[30];
 	char output[6];
 	float cijena;
 
@@ -63,8 +72,10 @@ typedef struct
 	MATICNA maticna;
 	RAM ram;
 	GPU graficka;
+	HARD harddisk;
 	NAPAJANJE psu;
 	KUCISTE kuciste;
+	float ukupnacijena;
 
 }RACUNALO;
 
@@ -82,19 +93,22 @@ void slaganjeRacunala();
 
 //FUNKCIJE ISPISA/PRETRAGE
 void ispisKomponenti();
-int srcproc();
-void srcmat(int);
-void srcRAM();
-void srcgpu();
-void srcpsu();
-void srccase();
+void srcproc(int*);
+int srcmat(int);
+int srcRAM();
+int srcgpu();
+int srcHard();
+int srcpsu();
+int srccase();
+
 
 //FUNKCIJE KUPAC
 void izbornikk();
 RACUNALO kupnjakomp();
 RACUNALO kupnjaracunala();
 int securecheck();
-
+RACUNALO randompc();
+void printKclosest(RACUNALO*, int, int, int);
 //SORTIRANJE
 void selectionSortProc(PROCESOR*, const int);
 void zamjenaProc(PROCESOR*, PROCESOR*);
@@ -104,16 +118,20 @@ void zamjenaRAM(RAM*, RAM*);
 void selectionSortRAM(RAM*, const int);
 void zamjenaGpu(GPU*, GPU*);
 void selectionSortGpu(GPU*, const int);
+void zamjenaHARD(NAPAJANJE*, NAPAJANJE*);
+void selectionSortHARD(NAPAJANJE*, const int);
 void zamjenaPSU(NAPAJANJE*, NAPAJANJE*);
 void selectionSortPSU(NAPAJANJE*, const int);
 void zamjenaKUCISTE(KUCISTE*, KUCISTE*);
 void selectionSortKUCISTE(KUCISTE*, const int);
+
 
 //ALOKACIJA
 PROCESOR* memoryallocProcesor(PROCESOR*,int );
 MATICNA* memoryalloMaticna(MATICNA*, int);
 RAM* memoryalloRAM(RAM*, int);
 GPU* memoryalloGPU(GPU*, int);
+HARD* memoryallocHARD(HARD*, int);
 NAPAJANJE* memoryalloPSU(NAPAJANJE*, int);
 KUCISTE* memoryalloKUCISTE(KUCISTE*, int);
 RACUNALO* memoryalloRACUNALA(RACUNALO*, int);
