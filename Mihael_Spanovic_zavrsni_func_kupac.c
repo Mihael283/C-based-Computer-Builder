@@ -16,7 +16,7 @@ void izbornikk()
     {
         printf(" 1.Kupnja komponenti.\n");
         printf(" 2.Kupnja racunala.\n");
-        printf(" 3.Slaganje racunala po cijeni.\n");
+        printf(" 3.Random pc for price.\n");
         printf(" 4.Povrataka u izbornik.\n");
         printf(" 5.Izlaz iz programa.\n");
            
@@ -33,7 +33,7 @@ void izbornikk()
         }
         case 2:
         {
-
+            kupnjaracunala();
             break;
         }
         case 3:
@@ -43,7 +43,7 @@ void izbornikk()
         }
         case 4:
         {
-
+            return;
             break;
         }
         case 5:
@@ -59,6 +59,7 @@ void izbornikk()
     } while (1);
 }
 
+/// ALOKACIJA MEMORIJE
 PROCESOR* memoryallocProcesor(PROCESOR* array,int n)
 {
     array = NULL;
@@ -73,58 +74,155 @@ PROCESOR* memoryallocProcesor(PROCESOR* array,int n)
     return array;
     }
 }
-void zamjenaproc(PROCESOR* veci, PROCESOR* manji) { 
+MATICNA* memoryalloMaticna(MATICNA* array, int n)
+{
+    array = NULL;
+    array = (MATICNA*)calloc(n, sizeof(MATICNA));
+    if (array == NULL)
+    {
+        perror("Nesupjesna alokacija");
+        izbornik();
+    }
+    else
+    {
+        return array;
+    }
+}
+RAM* memoryalloRAM(RAM* array, int n)
+{
+    array = NULL;
+    array = (RAM*)calloc(n, sizeof(RAM));
+    if (array == NULL)
+    {
+        perror("Nesupjesna alokacija");
+        izbornik();
+    }
+    else
+    {
+        return array;
+    }
+}
+GPU* memoryalloGPU(GPU* array, int n)
+{
+    array = NULL;
+    array = (GPU*)calloc(n, sizeof(GPU));
+    if (array == NULL)
+    {
+        perror("Nesupjesna alokacija");
+        izbornik();
+    }
+    else
+    {
+        return array;
+    }
+}
+NAPAJANJE* memoryalloPSU(NAPAJANJE* array , int n)
+{
+    array = NULL;
+    array = (NAPAJANJE*)calloc(n, sizeof(NAPAJANJE));
+    if (array == NULL)
+    {
+        perror("Nesupjesna alokacija");
+        izbornik();
+    }
+    else
+    {
+        return array;
+    }
+}
+KUCISTE* memoryalloKUCISTE(KUCISTE* array, int n)
+{
+    array = NULL;
+    array = (KUCISTE*)calloc(n, sizeof(KUCISTE));
+    if (array == NULL)
+    {
+        perror("Nesupjesna alokacija");
+        izbornik();
+    }
+    else
+    {
+        return array;
+    }
+}
+RACUNALO* memoryalloRACUNALA(RACUNALO* array, int n)
+{
+    array = NULL;
+    array = (RACUNALO*)calloc(n, sizeof(RACUNALO));
+    if (array == NULL)
+    {
+        perror("Nesupjesna alokacija");
+        izbornik();
+    }
+    else
+    {
+        return array;
+    }
+}
 
 
 
-   PROCESOR temp = *manji;
+///SORT
+void zamjenaproc(PROCESOR* veci, PROCESOR* manji) {
+
+
+
+    PROCESOR temp = *manji;
     *manji = *veci;
     *veci = temp;
 
 
 }
-void selectionSortProc(PROCESOR* sort, const int broj) { 
+void selectionSortProc(PROCESOR* sort, const int broj) {
     int min = 0;
-    for (int i = 0; i < broj - 1; i++)
+    int x = 0;
+    system("cls");
+    printf("\n1.Sortiranje po cijeni.");
+    printf("\n2.Sortiranje po kataloskom broju.");
+    printf("\n3.Povratak u izbornik.");
+    scanf("%d", &x);
+
+    if (x == 1)
     {
-        min = i;
-        for (int j = i + 1; j < broj; j++)
+        for (int i = 0; i < broj - 1; i++)
         {
-            if ((sort + j)->cijena < (sort + min)->cijena) {
-                min = j;
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->cijena < (sort + min)->cijena) {
+                    min = j;
+                }
             }
+            zamjenaproc((sort + i), (sort + min));
         }
-        zamjenaproc((sort + i), (sort + min));
     }
-}
-void selectionSortProcCijena(PROCESOR* sort, const int broj) {
-    int min = 0;
-    for (int i = 0; i < broj - 1; i++)
+    else if (x == 2)
     {
-        min = i;
-        for (int j = i + 1; j < broj; j++)
+        for (int i = 0; i < broj - 1; i++)
         {
-            if ((sort + j)->cijena < (sort + min)->cijena) {
-                min = j;
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->id < (sort + min)->id) {
+                    min = j;
+                }
             }
+            zamjenaproc((sort + i), (sort + min));
         }
-        zamjenaprocCijena((sort + i), (sort + min));
     }
-}
-void selectionSortMaticne(MATICNA* sort, const int broj)
-{
-    int min = 0;
-    for (int i = 0; i < broj - 1; i++)
+    else if (x == 3)
     {
-        min = i;
-        for (int j = i + 1; j < broj; j++)
-        {
-            if ((sort + j)->cijena < (sort + min)->cijena) {
-                min = j;
-            }
+        for (;;) {
+            izbornik(); break;
         }
-        zamjenaMat((sort + i), (sort + min));
     }
+    else
+    {
+        printf("\nPogrešan unos,vracamo vas u izbornik!");
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+
 }
 void zamjenaMat(MATICNA* veci, MATICNA* manji)
 {
@@ -132,26 +230,297 @@ void zamjenaMat(MATICNA* veci, MATICNA* manji)
     *manji = *veci;
     *veci = temp;
 }
-void selectionSortMatCijena(MATICNA* sort, const int broj)
+void selectionSortMaticne(MATICNA* sort, const int broj)
 {
+    system("cls");
     int min = 0;
-    for (int i = 0; i < broj - 1; i++)
+    int x = 0;
+    printf("\n1.Sortiranje po cijeni.");
+    printf("\n2.Sortiranje po kataloskom broju.");
+    printf("\n3.Povratak u izbornik.");
+    scanf("%d", &x);
+
+    if (x == 1)
     {
-        min = i;
-        for (int j = i + 1; j < broj; j++)
+        for (int i = 0; i < broj - 1; i++)
         {
-            if ((sort + j)->cijena < (sort + min)->cijena) {
-                min = j;
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->cijena < (sort + min)->cijena) {
+                    min = j;
+                }
             }
+            zamjenaMat((sort + i), (sort + min));
         }
-        zamjenaMat((sort + i), (sort + min));
+    }
+    else if (x == 2)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->id < (sort + min)->id) {
+                    min = j;
+                }
+            }
+            zamjenaMat((sort + i), (sort + min));
+        }
+    }
+    else if (x == 3)
+    {
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+    else
+    {
+        printf("\nPogrešan unos,vracamo vas u izbornik!");
+        for (;;) {
+            izbornik(); break;
+        }
     }
 }
+void zamjenaRAM(RAM* veci,RAM* manji)
+{
+    RAM temp = *manji;
+    *manji = *veci;
+    *veci = temp;
+}
+void selectionSortRAM(RAM* sort, const int broj)
+{
+    int min = 0;
+    int x = 0;
+    system("cls");
+    printf("\n1.Sortiranje po cijeni.");
+    printf("\n2.Sortiranje po kataloskom broju.");
+    printf("\n3.Povratak u izbornik.");
+    scanf("%d", &x);
+
+    if (x == 1)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->cijena < (sort + min)->cijena) {
+                    min = j;
+                }
+            }
+            zamjenaRAM((sort + i), (sort + min));
+        }
+    }
+    else if (x == 2)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->id < (sort + min)->id) {
+                    min = j;
+                }
+            }
+            zamjenaRAM((sort + i), (sort + min));
+        }
+    }
+    else if (x == 3)
+    {
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+    else
+    {
+        printf("\nPogrešan unos,vracamo vas u izbornik!");
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+}
+void zamjenaGpu(GPU* veci, GPU* manji)
+{
+    GPU temp = *manji;
+    *manji = *veci;
+    *veci = temp;
+}
+void selectionSortGpu(GPU* sort, const int broj)
+{
+    int min = 0;
+    int x = 0;
+    system("cls");
+    printf("\n1.Sortiranje po cijeni.");
+    printf("\n2.Sortiranje po kataloskom broju.");
+    printf("\n3.Povratak u izbornik.");
+    scanf("%d", &x);
+
+    if (x == 1)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->cijena < (sort + min)->cijena) {
+                    min = j;
+                }
+            }
+            zamjenaGpu((sort + i), (sort + min));
+        }
+    }
+    else if (x == 2)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->id < (sort + min)->id) {
+                    min = j;
+                }
+            }
+            zamjenaGpu((sort + i), (sort + min));
+        }
+    }
+    else if (x == 3)
+    {
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+    else
+    {
+        printf("\nPogrešan unos,vracamo vas u izbornik!");
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+}
+void zamjenaPSU(NAPAJANJE* veci, NAPAJANJE* manji)
+{
+    NAPAJANJE temp = *manji;
+    *manji = *veci;
+    *veci = temp;
+}
+void selectionSortPSU(NAPAJANJE* sort, const int broj)
+{
+    int min = 0;
+    int x = 0;
+    system("cls");
+    printf("\n1.Sortiranje po cijeni.");
+    printf("\n2.Sortiranje po kataloskom broju.");
+    printf("\n3.Povratak u izbornik.");
+    scanf("%d", &x);
+
+    if (x == 1)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->cijena < (sort + min)->cijena) {
+                    min = j;
+                }
+            }
+            zamjenaPSU((sort + i), (sort + min));
+        }
+    }
+    else if (x == 2)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->id < (sort + min)->id) {
+                    min = j;
+                }
+            }
+            zamjenaPSU((sort + i), (sort + min));
+        }
+    }
+    else if (x == 3)
+    {
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+    else
+    {
+        printf("\nPogrešan unos,vracamo vas u izbornik!");
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+}
+void zamjenaKUCISTE(KUCISTE* veci, KUCISTE* manji)
+{
+   KUCISTE temp = *manji;
+    *manji = *veci;
+    *veci = temp;
+}
+void selectionSortKUCISTE(KUCISTE* sort, const int broj)
+{
+    int min = 0;
+    int x = 0;
+    system("cls");
+    printf("\n1.Sortiranje po cijeni.");
+    printf("\n2.Sortiranje po kataloskom broju.");
+    printf("\n3.Povratak u izbornik.");
+    scanf("%d", &x);
+
+    if (x == 1)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->cijena < (sort + min)->cijena) {
+                    min = j;
+                }
+            }
+            zamjenaKUCISTE((sort + i), (sort + min));
+        }
+    }
+    else if (x == 2)
+    {
+        for (int i = 0; i < broj - 1; i++)
+        {
+            min = i;
+            for (int j = i + 1; j < broj; j++)
+            {
+                if ((sort + j)->id < (sort + min)->id) {
+                    min = j;
+                }
+            }
+            zamjenaKUCISTE((sort + i), (sort + min));
+        }
+    }
+    else if (x == 3)
+    {
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+    else
+    {
+        printf("\nPogrešan unos,vracamo vas u izbornik!");
+        for (;;) {
+            izbornik(); break;
+        }
+    }
+}
+/// KRAJ SORTA
+
+
 RACUNALO kupnjakomp()
 {
     system("cls");
     printf("\nDOBRODOSLI U IZBORNIK ZA KUPNJU RACUNALNIH KOMPONETNI!\n");
-    printf("Nakon odabira komponenti odaberite opciju za izdavanje racuna kako bi zavrsili kupnju\n");
 
     int brojac = 0;
     do
@@ -164,7 +533,6 @@ RACUNALO kupnjakomp()
         printf(" 5.Napajanje.\n");
         printf(" 6.Kucista.\n");
         printf(" 7.Izlaz iz programa\n");
-        
 
         printf("Unesite broj koji odgovara izborniku:\n");
         scanf("%d", &i);
@@ -173,7 +541,7 @@ RACUNALO kupnjakomp()
         {
         case 1:
         {
-            int j=0;
+            int j = 0;
             printf("1.AMD procesori\n");
             printf("2.INTEL procesori\n");
             printf("Odaberite opciju:\n");
@@ -197,44 +565,22 @@ RACUNALO kupnjakomp()
                 procesoriAMD = memoryallocProcesor(procesoriAMD, broj);
                 rewind(view);
                 fread(procesoriAMD, sizeof(PROCESOR), broj, view);
-                printf("\n1.Sortiranje po cijeni.");
-                printf("\n2.Sortiranje po kataloskom broju.");
-                printf("\n3.Povratak u izbornik.");
-                scanf("%d", &x);
-                if (x == 1)
-                {
-                    selectionSortProcCijena(procesoriAMD, broj);
-                }
-                else if (x == 2)
-                {
-                    selectionSortProc(procesoriAMD, broj);
-                }
-                else if (x == 3)
-                {
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                }
-                else
-                {
-                    printf("\nPogrešan unos,vracamo vas u izbornik!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                }
+
+                selectionSortProc(procesoriAMD, broj);
+
                 for (i = 0; i < broj; i++)
                 {
-                    printf("\n%d %s %s %s %s %f", (procesoriAMD + i)->id,(procesoriAMD+i)->ime, (procesoriAMD + i)->brojjezgri, (procesoriAMD + i)->brojtredova, (procesoriAMD + i)->clock, (procesoriAMD + i)->cijena);
+                    printf("\n%d %s %s %s %s %0.2f", (procesoriAMD + i)->id, (procesoriAMD + i)->ime, (procesoriAMD + i)->brojjezgri, (procesoriAMD + i)->brojtredova, (procesoriAMD + i)->clock, (procesoriAMD + i)->cijena);
                 }
                 printf("\nUpisite id procesora kojeg zelite kupiti:");
                 fflush(stdin);
                 int odabir = 0;
-                scanf("%d",&odabir);
+                scanf("%d", &odabir);
                 for (i = 0; i < broj; i++)
                 {
-                    if((procesoriAMD + i)->id==odabir)
+                    if ((procesoriAMD + i)->id == odabir)
                     {
-                        printf("Uspjesno ste kupili procesor:%s za %fKn", (procesoriAMD + i)->ime, (procesoriAMD + i)->cijena);
+                        printf("Uspjesno ste kupili procesor:%s za %0.2fKn", (procesoriAMD + i)->ime, (procesoriAMD + i)->cijena);
                         FILE* fp = NULL;
                         fp = fopen("Racuni.txt", "a+");
                         if (fp == NULL)
@@ -247,15 +593,15 @@ RACUNALO kupnjakomp()
                         srand((unsigned)time(NULL));
                         int gornjag = 1000;
                         int donjag = 1;
-                        int broj_racuna=((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
+                        int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
                         fprintf(fp, "Broj racuna:%d\n", broj_racuna);
-                        fprintf(fp, "%d %s %s %s %s %f\n", (procesoriAMD + i)->id, (procesoriAMD + i)->ime, (procesoriAMD + i)->brojjezgri, (procesoriAMD + i)->brojtredova, (procesoriAMD + i)->clock, (procesoriAMD + i)->cijena);
+                        fprintf(fp, "%d %s %s %s %s %0.2f\n", (procesoriAMD + i)->id, (procesoriAMD + i)->ime, (procesoriAMD + i)->brojjezgri, (procesoriAMD + i)->brojtredova, (procesoriAMD + i)->clock, (procesoriAMD + i)->cijena);
                         fclose(fp);
                         break;
                     }
                     else
                     {
-                        printf("Procesor s time id-om nije pronadjen!");
+                        printf("Procesor s tim id-om nije pronadjen!");
                         for (;;) {
                             izbornik(); break;
                         }
@@ -263,6 +609,7 @@ RACUNALO kupnjakomp()
                     }
                 }
                 fclose(view);
+                free(procesoriAMD);
                 break;
 
             }
@@ -283,34 +630,12 @@ RACUNALO kupnjakomp()
                 procesoriINTEL = memoryallocProcesor(procesoriINTEL, broj);
                 rewind(view);
                 fread(procesoriINTEL, sizeof(PROCESOR), broj, view);
-                printf("\n1.Sortiranje po cijeni.");
-                printf("\n2.Sortiranje po kataloskom broju.");
-                printf("\n3.Povratak u izbornik.");
-                scanf("%d", &x);
-                if (x == 1)
-                {
-                    selectionSortProcCijena(procesoriINTEL, broj);
-                }
-                else if (x == 2)
-                {
-                    selectionSortProc(procesoriINTEL, broj);
-                }
-                else if (x == 3)
-                {
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                }
-                else
-                {
-                    printf("\nPogrešan unos,vracamo vas u izbornik!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                }
+
+                selectionSortProc(procesoriINTEL, broj);
+
                 for (i = 0; i < broj; i++)
                 {
-                    printf("\n%d %s %s %s %s %f", (procesoriINTEL + i)->id, (procesoriINTEL + i)->ime, (procesoriINTEL + i)->brojjezgri, (procesoriINTEL + i)->brojtredova, (procesoriINTEL + i)->clock, (procesoriINTEL + i)->cijena);
+                    printf("\n%d %s %s %s %s %0.2f", (procesoriINTEL + i)->id, (procesoriINTEL + i)->ime, (procesoriINTEL + i)->brojjezgri, (procesoriINTEL + i)->brojtredova, (procesoriINTEL + i)->clock, (procesoriINTEL + i)->cijena);
                 }
                 printf("\nUpisite id procesora kojeg zelite kupiti:");
                 fflush(stdin);
@@ -320,7 +645,7 @@ RACUNALO kupnjakomp()
                 {
                     if ((procesoriINTEL + i)->id == odabir)
                     {
-                        printf("Uspjesno ste kupili procesor:%s za %fKn", (procesoriINTEL + i)->ime, (procesoriINTEL + i)->cijena);
+                        printf("Uspjesno ste kupili procesor:%s za %0.2fKn", (procesoriINTEL + i)->ime, (procesoriINTEL + i)->cijena);
                         FILE* fp = NULL;
                         fp = fopen("Racuni.txt", "a+");
                         if (fp == NULL)
@@ -335,23 +660,24 @@ RACUNALO kupnjakomp()
                         int donjag = 1;
                         int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
                         fprintf(fp, "Broj racuna:%d\n", broj_racuna);
-                        fprintf(fp, "%d %s %s %s %s %f\n", (procesoriINTEL + i)->id, (procesoriINTEL + i)->ime, (procesoriINTEL + i)->brojjezgri, (procesoriINTEL + i)->brojtredova, (procesoriINTEL + i)->clock, (procesoriINTEL + i)->cijena);
+                        fprintf(fp, "%d %s %s %s %s %0.2f\n", (procesoriINTEL + i)->id, (procesoriINTEL + i)->ime, (procesoriINTEL + i)->brojjezgri, (procesoriINTEL + i)->brojtredova, (procesoriINTEL + i)->clock, (procesoriINTEL + i)->cijena);
                         fclose(fp);
                         break;
                     }
                     else
                     {
-                        printf("Procesor s time id-om nije pronadjen!");
+                        printf("Procesor s tim id-om nije pronadjen!");
                         for (;;) {
                             izbornik(); break;
                         }
                         break;
                     }
                 }
+                free(procesoriINTEL);
                 fclose(view);
                 break;
             }
-            
+
             default:
             {
                 printf("\aPonovite unos");
@@ -373,56 +699,34 @@ RACUNALO kupnjakomp()
                 int broj = 0;
                 int x = 0;
                 FILE* view = NULL;
-                view = fopen("ProcesoriAMD", "rb");
+                view = fopen("MaticneAMD", "rb");
                 if (view == NULL)
                 {
                     perror("Otvaranje dokumenta");
                     return;
                 }
                 fseek(view, 0, SEEK_END);
-                broj = ftell(view) / sizeof(PROCESOR);
-                PROCESOR* procesoriAMD = NULL;
-                procesoriAMD = memoryallocProcesor(procesoriAMD, broj);
+                broj = ftell(view) / sizeof(MATICNA);
+                MATICNA* maticneAMD = NULL;
+                maticneAMD = memoryalloMaticna(maticneAMD, broj);
                 rewind(view);
-                fread(procesoriAMD, sizeof(PROCESOR), broj, view);
-                printf("\n1.Sortiranje po cijeni.");
-                printf("\n2.Sortiranje po kataloskom broju.");
-                printf("\n3.Povratak u izbornik.");
-                scanf("%d", &x);
-                if (x == 1)
-                {
-                    selectionSortProcCijena(procesoriAMD, broj);
-                }
-                else if (x == 2)
-                {
-                    selectionSortProc(procesoriAMD, broj);
-                }
-                else if (x == 3)
-                {
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                }
-                else
-                {
-                    printf("\nPogrešan unos,vracamo vas u izbornik!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                }
+                fread(maticneAMD, sizeof(MATICNA), broj, view);
+
+                selectionSortMaticne(maticneAMD, broj);
+
                 for (i = 0; i < broj; i++)
                 {
-                    printf("\n%d %s %s %s %s %f", (procesoriAMD + i)->id, (procesoriAMD + i)->ime, (procesoriAMD + i)->brojjezgri, (procesoriAMD + i)->brojtredova, (procesoriAMD + i)->clock, (procesoriAMD + i)->cijena);
+                    printf("\n%d %s %s %0.2f", (maticneAMD + i)->id, (maticneAMD + i)->ime, (maticneAMD + i)->chipset, (maticneAMD + i)->cijena);
                 }
-                printf("\nUpisite id procesora kojeg zelite kupiti:");
+                printf("\nUpisite id maticne koju zelite kupiti:");
                 fflush(stdin);
                 int odabir = 0;
                 scanf("%d", &odabir);
                 for (i = 0; i < broj; i++)
                 {
-                    if ((procesoriAMD + i)->id == odabir)
+                    if ((maticneAMD + i)->id == odabir)
                     {
-                        printf("Uspjesno ste kupili procesor:%s za %fKn", (procesoriAMD + i)->ime, (procesoriAMD + i)->cijena);
+                        printf("Uspjesno ste kupili maticnu:%s za %0.2fKn", (maticneAMD + i)->ime, (maticneAMD + i)->cijena);
                         FILE* fp = NULL;
                         fp = fopen("Racuni.txt", "a+");
                         if (fp == NULL)
@@ -437,13 +741,13 @@ RACUNALO kupnjakomp()
                         int donjag = 1;
                         int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
                         fprintf(fp, "Broj racuna:%d\n", broj_racuna);
-                        fprintf(fp, "%d %s %s %s %s %f\n", (procesoriAMD + i)->id, (procesoriAMD + i)->ime, (procesoriAMD + i)->brojjezgri, (procesoriAMD + i)->brojtredova, (procesoriAMD + i)->clock, (procesoriAMD + i)->cijena);
+                        fprintf(fp, "%d %s %s %0.2f\n", (maticneAMD + i)->id, (maticneAMD + i)->ime, (maticneAMD + i)->chipset, (maticneAMD + i)->cijena);
                         fclose(fp);
                         break;
                     }
                     else
                     {
-                        printf("Procesor s time id-om nije pronadjen!");
+                        printf("Maticna s tim id-om nije pronadjen!");
                         for (;;) {
                             izbornik(); break;
                         }
@@ -451,6 +755,7 @@ RACUNALO kupnjakomp()
                     }
                 }
                 fclose(view);
+                free(maticneAMD);
                 break;
 
             }
@@ -459,56 +764,34 @@ RACUNALO kupnjakomp()
                 int broj = 0;
                 int x = 0;
                 FILE* view = NULL;
-                view = fopen("ProcesoriINTEL", "rb");
+                view = fopen("MaticneINTEL", "rb");
                 if (view == NULL)
                 {
                     perror("Otvaranje dokumenta");
                     return;
                 }
                 fseek(view, 0, SEEK_END);
-                broj = ftell(view) / sizeof(PROCESOR);
-                PROCESOR* procesoriINTEL = NULL;
-                procesoriINTEL = memoryallocProcesor(procesoriINTEL, broj);
+                broj = ftell(view) / sizeof(MATICNA);
+                MATICNA* maticneINTEL = NULL;
+                maticneINTEL = memoryalloMaticna(maticneINTEL, broj);
                 rewind(view);
-                fread(procesoriINTEL, sizeof(PROCESOR), broj, view);
-                printf("\n1.Sortiranje po cijeni.");
-                printf("\n2.Sortiranje po kataloskom broju.");
-                printf("\n3.Povratak u izbornik.");
-                scanf("%d", &x);
-                if (x == 1)
-                {
-                    selectionSortProcCijena(procesoriINTEL, broj);
-                }
-                else if (x == 2)
-                {
-                    selectionSortProc(procesoriINTEL, broj);
-                }
-                else if (x == 3)
-                {
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                }
-                else
-                {
-                    printf("\nPogrešan unos,vracamo vas u izbornik!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                }
+                fread(maticneINTEL, sizeof(MATICNA), broj, view);
+
+                selectionSortMaticne(maticneINTEL, broj);
+
                 for (i = 0; i < broj; i++)
                 {
-                    printf("\n%d %s %s %s %s %f", (procesoriINTEL + i)->id, (procesoriINTEL + i)->ime, (procesoriINTEL + i)->brojjezgri, (procesoriINTEL + i)->brojtredova, (procesoriINTEL + i)->clock, (procesoriINTEL + i)->cijena);
+                    printf("\n%d %s %s %0.2f", (maticneINTEL + i)->id, (maticneINTEL + i)->ime, (maticneINTEL + i)->chipset, (maticneINTEL + i)->cijena);
                 }
-                printf("\nUpisite id procesora kojeg zelite kupiti:");
+                printf("\nUpisite id maticne koju zelite kupiti:");
                 fflush(stdin);
                 int odabir = 0;
                 scanf("%d", &odabir);
                 for (i = 0; i < broj; i++)
                 {
-                    if ((procesoriINTEL + i)->id == odabir)
+                    if ((maticneINTEL + i)->id == odabir)
                     {
-                        printf("Uspjesno ste kupili procesor:%s za %fKn", (procesoriINTEL + i)->ime, (procesoriINTEL + i)->cijena);
+                        printf("Uspjesno ste kupili maticnu:%s za %0.2fKn", (maticneINTEL + i)->ime, (maticneINTEL + i)->cijena);
                         FILE* fp = NULL;
                         fp = fopen("Racuni.txt", "a+");
                         if (fp == NULL)
@@ -523,13 +806,13 @@ RACUNALO kupnjakomp()
                         int donjag = 1;
                         int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
                         fprintf(fp, "Broj racuna:%d\n", broj_racuna);
-                        fprintf(fp, "%d %s %s %s %s %f\n", (procesoriINTEL + i)->id, (procesoriINTEL + i)->ime, (procesoriINTEL + i)->brojjezgri, (procesoriINTEL + i)->brojtredova, (procesoriINTEL + i)->clock, (procesoriINTEL + i)->cijena);
+                        fprintf(fp, "%d %s %s %0.2f\n", (maticneINTEL + i)->id, (maticneINTEL + i)->ime, (maticneINTEL + i)->chipset, (maticneINTEL + i)->cijena);
                         fclose(fp);
                         break;
                     }
                     else
                     {
-                        printf("Procesor s time id-om nije pronadjen!");
+                        printf("Maticna s tim id-om nije pronadjen!");
                         for (;;) {
                             izbornik(); break;
                         }
@@ -537,6 +820,7 @@ RACUNALO kupnjakomp()
                     }
                 }
                 fclose(view);
+                free(maticneINTEL);
                 break;
             }
 
@@ -549,19 +833,264 @@ RACUNALO kupnjakomp()
         }
         case 3:
         {
+
+            int broj = 0;
+            int x = 0;
+            FILE* view = NULL;
+            view = fopen("RAM", "rb");
+            if (view == NULL)
+            {
+                perror("Otvaranje dokumenta");
+                return;
+            }
+            fseek(view, 0, SEEK_END);
+            broj = ftell(view) / sizeof(RAM);
+            RAM* radnamem = NULL;
+            radnamem = memoryalloRAM(radnamem, broj);
+            rewind(view);
+            fread(radnamem, sizeof(RAM), broj, view);
+
+            selectionSortRAM(radnamem, broj);
+
+            for (i = 0; i < broj; i++)
+            {
+                printf("\n%d %s %s %s %0.2f", (radnamem + i)->id, (radnamem + i)->ime, (radnamem + i)->size, (radnamem + i)->brzina, (radnamem + i)->cijena);
+            }
+            printf("\nUpisite id radne memorije koju zelite kupiti:");
+            fflush(stdin);
+            int odabir = 0;
+            scanf("%d", &odabir);
+            for (i = 0; i < broj; i++)
+            {
+                if ((radnamem + i)->id == odabir)
+                {
+                    printf("Uspjesno ste kupili ram:%s za %0.2fKn", (radnamem + i)->ime, (radnamem + i)->cijena);
+                    FILE* fp = NULL;
+                    fp = fopen("Racuni.txt", "a+");
+                    if (fp == NULL)
+                    {
+                        printf("Greška u izdavanju racuna!");
+                        for (;;) {
+                            izbornik(); break;
+                        }
+                    }
+                    srand((unsigned)time(NULL));
+                    int gornjag = 1000;
+                    int donjag = 1;
+                    int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
+                    fprintf(fp, "Broj racuna:%d\n", broj_racuna);
+                    fprintf(fp, "%d %s %s %s %0.2f\n", (radnamem + i)->id, (radnamem + i)->ime, (radnamem + i)->size, (radnamem + i)->brzina, (radnamem + i)->cijena);
+                    fclose(fp);
+                    break;
+                }
+                else
+                {
+                    printf("RAM s tim id-om nije pronadjen!");
+                    for (;;) {
+                        izbornik(); break;
+                    }
+                    break;
+                }
+            }
+            fclose(view);
+            free(radnamem);
             break;
+
+
         }
         case 4:
         {
+            int broj = 0;
+            int x = 0;
+            FILE* view = NULL;
+            view = fopen("Graficke", "rb");
+            if (view == NULL)
+            {
+                perror("Otvaranje dokumenta");
+                return;
+            }
+            fseek(view, 0, SEEK_END);
+            broj = ftell(view) / sizeof(GPU);
+            GPU* graficka = NULL;
+            graficka = memoryalloGPU(graficka, broj);
+            rewind(view);
+            fread(graficka, sizeof(GPU), broj, view);
 
+            selectionSortGpu(graficka, broj);
+
+            for (i = 0; i < broj; i++)
+            {
+                printf("\n%d %s %s %0.2f", (graficka + i)->id, (graficka + i)->ime, (graficka + i)->ram, (graficka + i)->cijena);
+            }
+            printf("\nUpisite graficke kartice koju zelite kupiti:");
+            fflush(stdin);
+            int odabir = 0;
+            scanf("%d", &odabir);
+            for (i = 0; i < broj; i++)
+            {
+                if ((graficka + i)->id == odabir)
+                {
+                    printf("Uspjesno ste kupili graficku karticu:%s za %0.2fKn", (graficka + i)->ime, (graficka + i)->cijena);
+                    FILE* fp = NULL;
+                    fp = fopen("Racuni.txt", "a+");
+                    if (fp == NULL)
+                    {
+                        printf("Greška u izdavanju racuna!");
+                        for (;;) {
+                            izbornik(); break;
+                        }
+                    }
+                    srand((unsigned)time(NULL));
+                    int gornjag = 1000;
+                    int donjag = 1;
+                    int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
+                    fprintf(fp, "Broj racuna:%d\n", broj_racuna);
+                    fprintf(fp, "%d %s %s %0.2f\n", (graficka + i)->id, (graficka + i)->ime, (graficka + i)->ram, (graficka + i)->cijena);
+                    fclose(fp);
+                    break;
+                }
+                else
+                {
+                    printf("Graficka kartica s tim id-om nije pronadjen!");
+                    for (;;) {
+                        izbornik(); break;
+                    }
+                    break;
+                }
+            }
+            fclose(view);
+            free(graficka);
             break;
         }
         case 5:
         {
+            int broj = 0;
+            int x = 0;
+            FILE* view = NULL;
+            view = fopen("Napajanja", "rb");
+            if (view == NULL)
+            {
+                perror("Otvaranje dokumenta");
+                return;
+            }
+            fseek(view, 0, SEEK_END);
+            broj = ftell(view) / sizeof(NAPAJANJE);
+            NAPAJANJE* psu = NULL;
+            psu = memoryalloPSU(psu, broj);
+            rewind(view);
+            fread(psu, sizeof(NAPAJANJE), broj, view);
 
+            selectionSortPSU(psu, broj);
+
+            for (i = 0; i < broj; i++)
+            {
+                printf("\n%d %s %s %0.2f", (psu + i)->id, (psu + i)->ime, (psu + i)->output, (psu + i)->cijena);
+            }
+            printf("\nUpisite ime napajanja kojega zelite kupiti:");
+            fflush(stdin);
+            int odabir = 0;
+            scanf("%d", &odabir);
+            for (i = 0; i < broj; i++)
+            {
+                if ((psu + i)->id == odabir)
+                {
+                    printf("Uspjesno ste kupili napajanje:%s za %0.2fKn", (psu + i)->ime, (psu + i)->cijena);
+                    FILE* fp = NULL;
+                    fp = fopen("Racuni.txt", "a+");
+                    if (fp == NULL)
+                    {
+                        printf("Greška u izdavanju racuna!");
+                        for (;;) {
+                            izbornik(); break;
+                        }
+                    }
+                    srand((unsigned)time(NULL));
+                    int gornjag = 1000;
+                    int donjag = 1;
+                    int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
+                    fprintf(fp, "Broj racuna:%d\n", broj_racuna);
+                    fprintf(fp, "%d %s %s %0.2f\n", (psu + i)->id, (psu + i)->ime, (psu + i)->output, (psu + i)->cijena);
+                    fclose(fp);
+                    break;
+                }
+                else
+                {
+                    printf("Napajanje s tim id-om nije pronadjen!");
+                    for (;;) {
+                        izbornik(); break;
+                    }
+                    break;
+                }
+            }
+            fclose(view);
+            free(psu);
             break;
         }
         case 6:
+        {
+            int broj = 0;
+            int x = 0;
+            FILE* view = NULL;
+            view = fopen("Kucista", "rb");
+            if (view == NULL)
+            {
+                perror("Otvaranje dokumenta");
+                return;
+            }
+            fseek(view, 0, SEEK_END);
+            broj = ftell(view) / sizeof(KUCISTE);
+            KUCISTE* kuciste = NULL;
+            kuciste = memoryalloKUCISTE(kuciste, broj);
+            rewind(view);
+            fread(kuciste, sizeof(KUCISTE), broj, view);
+
+            selectionSortKUCISTE(kuciste, broj);
+
+            for (i = 0; i < broj; i++)
+            {
+                printf("\n%d %s %0.2f", (kuciste + i)->id, (kuciste + i)->ime, (kuciste + i)->cijena);
+            }
+            printf("\nUpisite ime kucista kojega zelite kupiti:");
+            fflush(stdin);
+            int odabir = 0;
+            scanf("%d", &odabir);
+            for (i = 0; i < broj; i++)
+            {
+                if ((kuciste + i)->id == odabir)
+                {
+                    printf("Uspjesno ste kupili kuciste:%s za %0.2fKn", (kuciste + i)->ime, (kuciste + i)->cijena);
+                    FILE* fp = NULL;
+                    fp = fopen("Racuni.txt", "a+");
+                    if (fp == NULL)
+                    {
+                        printf("Greška u izdavanju racuna!");
+                        for (;;) {
+                            izbornik(); break;
+                        }
+                    }
+                    srand((unsigned)time(NULL));
+                    int gornjag = 1000;
+                    int donjag = 1;
+                    int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
+                    fprintf(fp, "Broj racuna:%d\n", broj_racuna);
+                    fprintf(fp, "%d %s %0.2f\n", (kuciste + i)->id, (kuciste + i)->ime,(kuciste + i)->cijena);
+                    fclose(fp);
+                    break;
+                }
+                else
+                {
+                    printf("Kuciste s tim id-om nije pronadjeno!");
+                    for (;;) {
+                        izbornik(); break;
+                    }
+                    break;
+                }
+            }
+            fclose(view);
+            free(kuciste);
+            break;
+        }
+        case 7:
         {
             exit(EXIT_SUCCESS);
             break;
@@ -572,4 +1101,118 @@ RACUNALO kupnjakomp()
         }
         }
     } while (1);
+}
+RACUNALO kupnjaracunala()
+{
+    system("cls");
+    int broj = 0;
+    int x = 0;
+    int check = 0;
+    printf("\nDOBRODOSLI U IZBORNIK ZA KUPNJU RACUNALA!\n");
+    FILE* view = NULL;
+    view = fopen("Racunala.bin", "rb");
+    if (view == NULL)
+    {
+        perror("Otvaranje dokumenta");
+        return;
+    }
+    fseek(view, 0, SEEK_END);
+    broj = ftell(view) / sizeof(RACUNALO);
+    RACUNALO* racunala = NULL;
+    float ukupnacijena=0;
+    racunala = memoryalloRACUNALA(racunala, broj);
+    rewind(view);
+    fread(racunala, sizeof(RACUNALO), broj, view);
+    for (int i = 0; i < broj; i++)
+    {
+        printf("RACUNALO %d.\n", i+1); 
+        ukupnacijena = (racunala + i)->procesor.cijena + (racunala + i)->maticna.cijena + (racunala + i)->ram.cijena + (racunala + i)->graficka.cijena + (racunala + i)->psu.cijena + (racunala + i)->kuciste.cijena;
+        printf("Procesor:%s\nMaticna:%s\nRadna memorija:%s %s\nGraficka:%s\nNapajanje:%s %s\nKuciste:%s\nUKUPNA CIJENA:%0.2fKn\n\n ", (racunala + i)->procesor.ime, (racunala + i)->maticna.ime, (racunala + i)->ram.ime, (racunala + i)->ram.size,
+        (racunala + i)->graficka.ime, (racunala + i)->psu.ime, (racunala + i)->psu.output, (racunala + i)->kuciste.ime,ukupnacijena);
+
+    }
+    printf("Upisite broj racunala kojeg zelite kupiti:");
+    scanf("%d", &x);
+    for (int i = 0; i < broj; i++)
+    {
+        if (x == i + 1)
+        { 
+            printf("RACUNALO %d.\n", i + 1);
+            ukupnacijena = (racunala + i)->procesor.cijena + (racunala + i)->maticna.cijena + (racunala + i)->ram.cijena + (racunala + i)->graficka.cijena + (racunala + i)->psu.cijena + (racunala + i)->kuciste.cijena;
+            printf("Procesor:%s\nMaticna:%s\nRadna memorija:%s %s\nGraficka:%s\nNapajanje:%s %s\nKuciste:%s\nUKUPNA CIJENA:%0.2fKn\n\n ", (racunala + i)->procesor.ime, (racunala + i)->maticna.ime, (racunala + i)->ram.ime, (racunala + i)->ram.size,
+                (racunala + i)->graficka.ime, (racunala + i)->psu.ime, (racunala + i)->psu.output, (racunala + i)->kuciste.ime, ukupnacijena);
+            printf("\nMolimo potvrdite željenu kupnju.");
+            check=securecheck();
+            if (check == 1)
+            {
+                printf("\nUspjesno ste kupili racunalo:RACUNALO %d. za %0.2fKn\n", i + 1, ukupnacijena);
+                FILE* fp = NULL;
+                fp = fopen("Racuni.txt", "a+");
+                if (fp == NULL)
+                {
+                    printf("\nGreška u izdavanju racuna!");
+                    for (;;) {
+                        izbornik(); break;
+                    }
+                }
+                srand((unsigned)time(NULL));
+                int gornjag = 1000;
+                int donjag = 1;
+                int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
+                fprintf(fp, "Broj racuna:%d\n", broj_racuna);
+                fprintf(fp, "Procesor:%s\nMaticna:%s\nRadna memorija:%s %s\n Graficka:%s\nNapajanje:%s %s\nKuciste:%s\n UKUPNA CIJENA:%0.2fKn\n ", (racunala + i)->procesor.ime, (racunala + i)->maticna.ime, (racunala + i)->ram.ime, (racunala + i)->ram.size,
+                    (racunala + i)->graficka.ime, (racunala + i)->psu.ime, (racunala + i)->psu.output, (racunala + i)->kuciste.ime, ukupnacijena);
+                fclose(fp);
+
+            }
+            else if (check == 2)
+            {
+                printf("\nKupnja nije izvrsena!");
+                int odluka = 0;
+                printf("\n1.Vratite se na pocetni izbornik");
+                printf("\n2.Ponovite izbor\n");
+                scanf("%d", &odluka);
+                if (odluka == 1)
+                {
+                    return;
+                }
+                else if (odluka == 2)
+                {
+                    kupnjaracunala();
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+    }
+    fclose(view);
+    free(racunala);
+}
+
+int securecheck()
+{
+    char da[] = "da";
+    char odluka[3];
+    printf("Da li ste sigurni da zelite izvrsiti kupnju?\n");
+    printf("Unesite da/ne\n");
+    scanf("%s", &odluka);
+
+    if (strcmp(da, odluka) == 0)
+    {
+        return 1;
+        
+    }
+    else
+    {
+        return 2;
+    }
+ }
+
+RACUNALO randompc()
+{
+    system("cls");
+    printf("DOBRODOSLI U IZBORNIK ZA SLAGANJE RACUNALA!\n");
+    printf("ZA POCETAK ODABERITE ZELJENI CJENOVNI RANG:\n");
 }
