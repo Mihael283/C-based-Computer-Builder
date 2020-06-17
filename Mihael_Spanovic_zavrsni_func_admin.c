@@ -196,7 +196,6 @@ void unosKomponenti()
                     printf("USPJESAN UNOS");
                     return;
                 }
-                system("cls");
                 break;
             }
             case 2:
@@ -227,7 +226,6 @@ void unosKomponenti()
                     printf("USPJESAN UNOS");
                     return;
                 }
-                system("cls");
                 break;
             } 
             default:
@@ -271,7 +269,6 @@ void unosKomponenti()
                     return;
 
                 }
-                system("cls");
                 break;
             }
             case 2:
@@ -298,7 +295,6 @@ void unosKomponenti()
                     printf("USPJESAN UNOS");
                     return;
                 }
-                system("cls");
                 break;
             }
             default:
@@ -337,7 +333,6 @@ void unosKomponenti()
                 
                 return;
             }
-            system("cls");
             break;
         }
         case 4:
@@ -365,7 +360,6 @@ void unosKomponenti()
                 
                 return;
             }
-            system("cls");
             break;
         }
         case 5:
@@ -393,7 +387,6 @@ void unosKomponenti()
                 
                 return;
             }
-            system("cls");
             break;
         }
         case 6:
@@ -418,7 +411,6 @@ void unosKomponenti()
                 
                 return;
             }
-            system("cls");
             break;
         }
         case 7:
@@ -1460,7 +1452,6 @@ void ispisKomponenti()
         {
             {
                 FILE* view = NULL;
-                RACUNALO* array = NULL;
                 printf("RACUNALA:\n");
                 view = fopen("Racunala.bin", "rb");
                 if (view == NULL)
