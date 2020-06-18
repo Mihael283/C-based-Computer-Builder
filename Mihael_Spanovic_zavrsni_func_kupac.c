@@ -16,8 +16,9 @@ void izbornikk()
     {
         printf("\n 1.Kupnja komponenti.\n");
         printf(" 2.Kupnja racunala.\n");
-        printf(" 3.Povrataka u izbornik.\n");
-        printf(" 4.Izlaz iz programa.\n");
+        printf(" 3.Random pc for price.\n");
+        printf(" 4.Povrataka u izbornik.\n");
+        printf(" 5.Izlaz iz programa.\n");
            
 
         printf("Unesite broj koji odgovara izborniku:\n");
@@ -37,10 +38,15 @@ void izbornikk()
         }
         case 3:
         {
-            return;
+            randompc();
             break;
         }
         case 4:
+        {
+            return;
+            break;
+        }
+        case 5:
         {
             exit(EXIT_SUCCESS);
             break;
@@ -580,7 +586,33 @@ void selectionSortKUCISTE(KUCISTE* sort, const int broj)
         }
     }
 }
-/// KRAJ SORTA
+void zamjenaRACUNALO(RACUNALO* veci, RACUNALO* manji)
+{
+    RACUNALO temp = *manji;
+    *manji = *veci;
+    *veci = temp;
+}
+void selectionSortRACUNALO(RACUNALO* sviPacijenti, const int broj) { //fix later
+
+	int min = 0;
+
+	for (int i = 0; i < broj - 1; i++)
+	{
+		min = i;
+
+		for (int j = i + 1; j < broj; j++)
+		{
+			if ((sviPacijenti + j)->ukupnacijena < (sviPacijenti + min)->ukupnacijena) {
+				min = j;
+			}
+			if(min != i){
+
+				zamjenaRACUNALO((sviPacijenti + i), (sviPacijenti + min));
+			}
+		}
+		
+	}
+}
 
 
 RACUNALO kupnjakomp()
@@ -1337,3 +1369,114 @@ int securecheck()
         return 2;
     }
  }
+
+RACUNALO randompc()
+{
+    system("cls");
+    float money = 0;
+    int x = 0;
+    int brojac=0;
+    printf("DOBRODOSLI U IZBORNIK ZA SLAGANJE RACUNALA!\n");
+    printf("ZA POCETAK ODABERITE ZELJENI CJENOVNI RANG:\n");
+    printf("Za koliko novaca zelite uzeti racunalo?\n");
+    scanf("%f", &money);
+    FILE* view = NULL;
+    view = fopen("Racunala.bin", "rb");
+    if (view == NULL)
+    {
+        perror("Otvaranje dokumenta");
+        return;
+    }
+    fseek(view, 0, SEEK_END);
+    int broj = ftell(view) / sizeof(RACUNALO);
+    RACUNALO* racunala = NULL;
+    racunala = memoryalloRACUNALA(racunala, broj);
+    rewind(view);
+    fread(racunala, sizeof(RACUNALO), broj, view);
+    selectionSortRACUNALO(racunala, broj);
+    float target=najbliziElement(racunala, broj, money);
+    for (int i = 0; i < broj; i++)
+    {
+        if ((racunala + i)->ukupnacijena == target)
+        {
+        printf("RACUNALO %d.\n", i + 1);
+        printf("Procesor:%s\nMaticna:%s\nRadna memorija:%s %s\nGraficka:%s\nPohrana:%s %s\nNapajanje:%s %s\nKuciste:%s\nUKUPNA CIJENA:%0.2fKn\n\n ", (racunala + i)->procesor.ime, (racunala + i)->maticna.ime, (racunala + i)->ram.ime, (racunala + i)->ram.size,
+            (racunala + i)->graficka.ime, (racunala + i)->harddisk.ime, (racunala + i)->harddisk.size, (racunala + i)->psu.ime, (racunala + i)->psu.output, (racunala + i)->kuciste.ime, (racunala + i)->ukupnacijena);
+        int check = securecheck();
+        if (check == 1)
+        {
+            printf("\nUspjesno ste kupili racunalo:RACUNALO %d. za %0.2fKn\n", i + 1, (racunala + i)->ukupnacijena);
+            FILE* fp = NULL;
+            fp = fopen("Racuni.txt", "a+");
+            if (fp == NULL)
+            {
+                printf("\nGreška u izdavanju racuna!");
+                for (;;) {
+                    izbornik(); break;
+                }
+            }
+            srand((unsigned)time(NULL));
+            int gornjag = 1000;
+            int donjag = 1;
+            int broj_racuna = ((rand() % (int)(((gornjag)+donjag) - (donjag))) + (donjag));
+            fprintf(fp, "Broj racuna:%d\n", broj_racuna);
+            fprintf(fp, "Procesor:%s\nMaticna:%s\nRadna memorija:%s %s\nGraficka:%s\nPohrana:%s %s\nNapajanje:%s %s\nKuciste:%s\nUKUPNA CIJENA:%0.2fKn\n\n ", (racunala + i)->procesor.ime, (racunala + i)->maticna.ime, (racunala + i)->ram.ime, (racunala + i)->ram.size,
+                (racunala + i)->graficka.ime, (racunala + i)->harddisk.ime, (racunala + i)->harddisk.size, (racunala + i)->psu.ime, (racunala + i)->psu.output, (racunala + i)->kuciste.ime, (racunala + i)->ukupnacijena);
+            fclose(fp);
+
+        }
+        else if (check == 2)
+        {
+            printf("\nKupnja nije izvrsena!");
+            int odluka = 0;
+            printf("\n1.Vratite se na pocetni izbornik");
+            printf("\n2.Ponovite izbor\n");
+            scanf("%d", &odluka);
+            if (odluka == 1)
+            {
+                return;
+            }
+            else if (odluka == 2)
+            {
+                kupnjaracunala();
+            }
+            else
+            {
+                return;
+            }
+        }
+        }
+    }
+    free(racunala);
+    fclose(view);
+}
+
+float najblizi(float  x, int y, int target) {
+    if (target - x >= y - target)
+        return y;
+    else
+        return x;
+}
+float najbliziElement(RACUNALO* arr, int n, float target) {
+    if (target <= (arr + 0)->ukupnacijena)
+        return (arr + 0)->ukupnacijena;
+    if (target >= (arr + n - 1)->ukupnacijena)
+        return (arr + n - 1)->ukupnacijena;
+    int left = 0, right = n, mid = 0;
+    while (left < right) {
+        mid = (left + right) / 2;
+        if ((arr + mid)->ukupnacijena == target)
+            return (arr + mid)->ukupnacijena;
+        if (target < (arr + mid)->ukupnacijena) {
+            if (mid > 0 && target > (arr + mid - 1)->ukupnacijena)
+                return najblizi((arr + mid - 1)->ukupnacijena, (arr + mid)->ukupnacijena, target);
+            right = mid;
+        }
+        else {
+            if (mid < n - 1 && target < (arr + mid + 1)->ukupnacijena)
+                return najblizi((arr + mid)->ukupnacijena, (arr + mid + 1)->ukupnacijena, target);
+            left = mid + 1;
+        }
+    }
+    return (arr + mid)->ukupnacijena;
+}
