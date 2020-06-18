@@ -107,8 +107,10 @@ void izbornikk();
 RACUNALO kupnjakomp();
 RACUNALO kupnjaracunala();
 int securecheck();
+RACUNALO randompc();
+float najblizi(float, int , int );
+float najbliziElement(RACUNALO*, int , float);
 
-void printKclosest(RACUNALO*, int, int, int);
 //SORTIRANJE
 void selectionSortProc(PROCESOR*, const int);
 void zamjenaProc(PROCESOR*, PROCESOR*);
@@ -124,7 +126,8 @@ void zamjenaPSU(NAPAJANJE*, NAPAJANJE*);
 void selectionSortPSU(NAPAJANJE*, const int);
 void zamjenaKUCISTE(KUCISTE*, KUCISTE*);
 void selectionSortKUCISTE(KUCISTE*, const int);
-
+void zamjenaRACUNALO(RACUNALO*, RACUNALO*);
+void selectionSortRACUNALO(RACUNALO*, const int);
 
 //ALOKACIJA
 PROCESOR* memoryallocProcesor(PROCESOR*,int );
