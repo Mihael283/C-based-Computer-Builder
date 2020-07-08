@@ -620,10 +620,9 @@ RACUNALO kupnjakomp()
     system("cls");
     printf("\nDOBRODOSLI U IZBORNIK ZA KUPNJU RACUNALNIH KOMPONETNI!\n");
 
-    int brojac = 0;
     do
     {
-        int i = 0;
+        int k = 0;
         printf(" \n 1.Procesori.\n");
         printf(" 2.Maticne.\n");
         printf(" 3.Radna memorija.\n");
@@ -634,9 +633,9 @@ RACUNALO kupnjakomp()
         printf(" 8.Povratak u izbornik\n");
 
         printf("Unesite broj koji odgovara izborniku:\n");
-        scanf("%d", &i);
+        scanf("%d", &k);
 
-        switch (i)
+        switch (k)
         {
         case 1:
         {
@@ -649,6 +648,7 @@ RACUNALO kupnjakomp()
             {
             case 1:
             {
+                int i = 0;
                 int broj = 0;
                 int x = 0;
                 FILE* view = NULL;
@@ -672,12 +672,11 @@ RACUNALO kupnjakomp()
                     printf("\n%d %s %s %s %s %0.2f", (procesoriAMD + i)->id, (procesoriAMD + i)->ime, (procesoriAMD + i)->brojjezgri, (procesoriAMD + i)->brojtredova, (procesoriAMD + i)->clock, (procesoriAMD + i)->cijena);
                 }
                 printf("\nUpisite id procesora kojeg zelite kupiti:");
-                fflush(stdin);
                 int odabir = 0;
                 scanf("%d", &odabir);
                 for (i = 0; i < broj; i++)
                 {
-                    if ((procesoriAMD + i)->id == odabir)
+                    if ((odabir == (procesoriAMD+i)->id))
                     {
                         printf("Uspjesno ste kupili procesor:%s za %0.2fKn", (procesoriAMD + i)->ime, (procesoriAMD + i)->cijena);
                         FILE* fp = NULL;
@@ -696,16 +695,18 @@ RACUNALO kupnjakomp()
                         fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                         fprintf(fp, "%d %s %s %s %s %0.2f\n", (procesoriAMD + i)->id, (procesoriAMD + i)->ime, (procesoriAMD + i)->brojjezgri, (procesoriAMD + i)->brojtredova, (procesoriAMD + i)->clock, (procesoriAMD + i)->cijena);
                         fclose(fp);
+                        x++;
                         break;
                     }
-                    else
-                    {
-                        printf("Procesor s tim id-om nije pronadjen!");
-                        for (;;) {
-                            izbornik(); break;
-                        }
-                        break;
+                   
+                }
+                if (x == 0)
+                {
+                    printf("Procesor s tim id-om nije pronadjen!");
+                    for (;;) {
+                        izbornikk(); break;
                     }
+                    break;
                 }
                 fclose(view);
                 free(procesoriAMD);
@@ -732,7 +733,7 @@ RACUNALO kupnjakomp()
 
                 selectionSortProc(procesoriINTEL, broj);
 
-                for (i = 0; i < broj; i++)
+                for ( int i = 0; i < broj; i++)
                 {
                     printf("\n%d %s %s %s %s %0.2f", (procesoriINTEL + i)->id, (procesoriINTEL + i)->ime, (procesoriINTEL + i)->brojjezgri, (procesoriINTEL + i)->brojtredova, (procesoriINTEL + i)->clock, (procesoriINTEL + i)->cijena);
                 }
@@ -740,7 +741,7 @@ RACUNALO kupnjakomp()
                 fflush(stdin);
                 int odabir = 0;
                 scanf("%d", &odabir);
-                for (i = 0; i < broj; i++)
+                for ( int i = 0; i < broj; i++)
                 {
                     if ((procesoriINTEL + i)->id == odabir)
                     {
@@ -761,16 +762,18 @@ RACUNALO kupnjakomp()
                         fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                         fprintf(fp, "%d %s %s %s %s %0.2f\n", (procesoriINTEL + i)->id, (procesoriINTEL + i)->ime, (procesoriINTEL + i)->brojjezgri, (procesoriINTEL + i)->brojtredova, (procesoriINTEL + i)->clock, (procesoriINTEL + i)->cijena);
                         fclose(fp);
+                        x++;
                         break;
                     }
-                    else
-                    {
-                        printf("Procesor s tim id-om nije pronadjen!");
-                        for (;;) {
-                            izbornik(); break;
-                        }
-                        break;
+
+                }
+                if (x == 0)
+                {
+                    printf("Procesor s tim id-om nije pronadjen!");
+                    for (;;) {
+                        izbornikk(); break;
                     }
+                    break;
                 }
                 free(procesoriINTEL);
                 fclose(view);
@@ -813,7 +816,7 @@ RACUNALO kupnjakomp()
 
                 selectionSortMaticne(maticneAMD, broj);
 
-                for (i = 0; i < broj; i++)
+                for ( int i = 0; i < broj; i++)
                 {
                     printf("\n%d %s %s %0.2f", (maticneAMD + i)->id, (maticneAMD + i)->ime, (maticneAMD + i)->chipset, (maticneAMD + i)->cijena);
                 }
@@ -821,7 +824,7 @@ RACUNALO kupnjakomp()
                 fflush(stdin);
                 int odabir = 0;
                 scanf("%d", &odabir);
-                for (i = 0; i < broj; i++)
+                for ( int i = 0; i < broj; i++)
                 {
                     if ((maticneAMD + i)->id == odabir)
                     {
@@ -842,16 +845,18 @@ RACUNALO kupnjakomp()
                         fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                         fprintf(fp, "%d %s %s %0.2f\n", (maticneAMD + i)->id, (maticneAMD + i)->ime, (maticneAMD + i)->chipset, (maticneAMD + i)->cijena);
                         fclose(fp);
+                        x++;
                         break;
                     }
-                    else
-                    {
-                        printf("Maticna s tim id-om nije pronadjen!");
-                        for (;;) {
-                            izbornik(); break;
-                        }
-                        break;
+
+                }
+                if (x == 0)
+                {
+                    printf("Maticna s tim id-om nije pronadjen!");
+                    for (;;) {
+                        izbornikk(); break;
                     }
+                    break;
                 }
                 fclose(view);
                 free(maticneAMD);
@@ -878,7 +883,7 @@ RACUNALO kupnjakomp()
 
                 selectionSortMaticne(maticneINTEL, broj);
 
-                for (i = 0; i < broj; i++)
+                for ( int i = 0; i < broj; i++)
                 {
                     printf("\n%d %s %s %0.2f", (maticneINTEL + i)->id, (maticneINTEL + i)->ime, (maticneINTEL + i)->chipset, (maticneINTEL + i)->cijena);
                 }
@@ -886,7 +891,7 @@ RACUNALO kupnjakomp()
                 fflush(stdin);
                 int odabir = 0;
                 scanf("%d", &odabir);
-                for (i = 0; i < broj; i++)
+                for ( int i = 0; i < broj; i++)
                 {
                     if ((maticneINTEL + i)->id == odabir)
                     {
@@ -907,16 +912,18 @@ RACUNALO kupnjakomp()
                         fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                         fprintf(fp, "%d %s %s %0.2f\n", (maticneINTEL + i)->id, (maticneINTEL + i)->ime, (maticneINTEL + i)->chipset, (maticneINTEL + i)->cijena);
                         fclose(fp);
+                        x++;
                         break;
                     }
-                    else
-                    {
-                        printf("Maticna s tim id-om nije pronadjen!");
-                        for (;;) {
-                            izbornik(); break;
-                        }
-                        break;
+
+                }
+                if (x == 0)
+                {
+                    printf("Maticna s tim id-om nije pronadjen!");
+                    for (;;) {
+                        izbornikk(); break;
                     }
+                    break;
                 }
                 fclose(view);
                 free(maticneINTEL);
@@ -951,7 +958,7 @@ RACUNALO kupnjakomp()
 
             selectionSortRAM(radnamem, broj);
 
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 printf("\n%d %s %s %s %0.2f", (radnamem + i)->id, (radnamem + i)->ime, (radnamem + i)->size, (radnamem + i)->brzina, (radnamem + i)->cijena);
             }
@@ -959,7 +966,7 @@ RACUNALO kupnjakomp()
             fflush(stdin);
             int odabir = 0;
             scanf("%d", &odabir);
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 if ((radnamem + i)->id == odabir)
                 {
@@ -980,16 +987,18 @@ RACUNALO kupnjakomp()
                     fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                     fprintf(fp, "%d %s %s %s %0.2f\n", (radnamem + i)->id, (radnamem + i)->ime, (radnamem + i)->size, (radnamem + i)->brzina, (radnamem + i)->cijena);
                     fclose(fp);
+                    x++;
                     break;
                 }
-                else
-                {
-                    printf("RAM s tim id-om nije pronadjen!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                    break;
+
+            }
+            if (x == 0)
+            {
+                printf("RAM s tim id-om nije pronadjen!");
+                for (;;) {
+                    izbornikk(); break;
                 }
+                break;
             }
             fclose(view);
             free(radnamem);
@@ -1017,7 +1026,7 @@ RACUNALO kupnjakomp()
 
             selectionSortGpu(graficka, broj);
 
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 printf("\n%d %s %s %0.2f", (graficka + i)->id, (graficka + i)->ime, (graficka + i)->ram, (graficka + i)->cijena);
             }
@@ -1025,7 +1034,7 @@ RACUNALO kupnjakomp()
             fflush(stdin);
             int odabir = 0;
             scanf("%d", &odabir);
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 if ((graficka + i)->id == odabir)
                 {
@@ -1046,16 +1055,18 @@ RACUNALO kupnjakomp()
                     fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                     fprintf(fp, "%d %s %s %0.2f\n", (graficka + i)->id, (graficka + i)->ime, (graficka + i)->ram, (graficka + i)->cijena);
                     fclose(fp);
+                    x++;
                     break;
                 }
-                else
-                {
-                    printf("Graficka kartica s tim id-om nije pronadjen!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                    break;
+
+            }
+            if (x == 0)
+            {
+                printf("Graficka s tim id-om nije pronadjen!");
+                for (;;) {
+                    izbornikk(); break;
                 }
+                break;
             }
             fclose(view);
             free(graficka);
@@ -1081,7 +1092,7 @@ RACUNALO kupnjakomp()
 
             selectionSortHARD(pohrana, broj);
 
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 printf("\n%d %s %s %0.2f", (pohrana + i)->id, (pohrana + i)->ime, (pohrana + i)->size, (pohrana + i)->cijena);
             }
@@ -1089,7 +1100,7 @@ RACUNALO kupnjakomp()
             fflush(stdin);
             int odabir = 0;
             scanf("%d", &odabir);
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 if ((pohrana + i)->id == odabir)
                 {
@@ -1110,16 +1121,18 @@ RACUNALO kupnjakomp()
                     fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                     fprintf(fp, "%d d% s% s % 0.2f\n", (pohrana + i)->id, (pohrana + i)->ime, (pohrana + i)->size, (pohrana + i)->cijena);
                     fclose(fp);
+                    x++;
                     break;
                 }
-                else
-                {
-                    printf("Komponenta za pohranu s tim id-om nije pronadjen!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                    break;
+
+            }
+            if (x == 0)
+            {
+                printf("Komponenta za pohranu s tim id-om nije pronadjen!");
+                for (;;) {
+                    izbornikk(); break;
                 }
+                break;
             }
             fclose(view);
             free(pohrana);
@@ -1145,7 +1158,7 @@ RACUNALO kupnjakomp()
 
             selectionSortPSU(psu, broj);
 
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 printf("\n%d %s %s %0.2f", (psu + i)->id, (psu + i)->ime, (psu + i)->output, (psu + i)->cijena);
             }
@@ -1153,7 +1166,7 @@ RACUNALO kupnjakomp()
             fflush(stdin);
             int odabir = 0;
             scanf("%d", &odabir);
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 if ((psu + i)->id == odabir)
                 {
@@ -1174,16 +1187,18 @@ RACUNALO kupnjakomp()
                     fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                     fprintf(fp, "%d %s %s %0.2f\n", (psu + i)->id, (psu + i)->ime, (psu + i)->output, (psu + i)->cijena);
                     fclose(fp);
+                    x++;
                     break;
                 }
-                else
-                {
-                    printf("Napajanje s tim id-om nije pronadjen!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                    break;
+
+            }
+            if (x == 0)
+            {
+                printf("Napajanje s tim id-om nije pronadjen!");
+                for (;;) {
+                    izbornikk(); break;
                 }
+                break;
             }
             fclose(view);
             free(psu);
@@ -1209,7 +1224,7 @@ RACUNALO kupnjakomp()
 
             selectionSortKUCISTE(kuciste, broj);
 
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 printf("\n%d %s %0.2f", (kuciste + i)->id, (kuciste + i)->ime, (kuciste + i)->cijena);
             }
@@ -1217,7 +1232,7 @@ RACUNALO kupnjakomp()
             fflush(stdin);
             int odabir = 0;
             scanf("%d", &odabir);
-            for (i = 0; i < broj; i++)
+            for ( int i = 0; i < broj; i++)
             {
                 if ((kuciste + i)->id == odabir)
                 {
@@ -1238,16 +1253,18 @@ RACUNALO kupnjakomp()
                     fprintf(fp, "Broj racuna:%d\n", broj_racuna);
                     fprintf(fp, "%d %s %0.2f\n", (kuciste + i)->id, (kuciste + i)->ime,(kuciste + i)->cijena);
                     fclose(fp);
+                    x++;
                     break;
                 }
-                else
-                {
-                    printf("Kuciste s tim id-om nije pronadjeno!");
-                    for (;;) {
-                        izbornik(); break;
-                    }
-                    break;
+
+            }
+            if (x == 0)
+            {
+                printf("Kuciste s tim id-om nije pronadjen!");
+                for (;;) {
+                    izbornikk(); break;
                 }
+                break;
             }
             fclose(view);
             free(kuciste);
